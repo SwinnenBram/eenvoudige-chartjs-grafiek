@@ -1,21 +1,26 @@
-// Functie om CSV te lezen en verwerken
-function parseCSV(file) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const csvData = event.target.result;
-        const parsedData = parseCSVData(csvData);
-        createChart(parsedData);
-    };
-    reader.readAsText(file);
+// De naam van het CSV-bestand dat we willen inladen
+const csvFileName = 'data.csv';  // Dit is de naam van het CSV-bestand
+
+// Functie om CSV-bestand in te lezen met fetch
+function fetchCSVData(fileName) {
+    fetch(fileName)
+        .then(response => response.text())  // Verkrijg de tekst van het CSV-bestand
+        .then(csvData => {
+            const parsedData = parseCSVData(csvData);  // Verwerk de CSV-gegevens
+            createChart(parsedData);  // Maak de grafiek
+        })
+        .catch(error => {
+            console.error('Fout bij het inladen van CSV:', error);
+        });
 }
 
-// Functie om CSV-data om te zetten naar een bruikbaar formaat
+// Functie om CSV te verwerken en de gegevens om te zetten
 function parseCSVData(csv) {
-    const lines = csv.split("\n");
+    const lines = csv.trim().split("\n");
     const labels = [];
     const data = [];
 
-    // Neem aan dat de eerste regel de headers bevat
+    // Begin met de tweede regel (de eerste regel zijn de headers)
     for (let i = 1; i < lines.length; i++) {
         const line = lines[i].split(",");
         if (line.length > 1) {
@@ -27,7 +32,7 @@ function parseCSVData(csv) {
     return { labels, data };
 }
 
-// Functie om een Chart.js grafiek te maken
+// Functie om de grafiek te maken met Chart.js
 function createChart(parsedData) {
     const ctx = document.getElementById('grafiekCanvas').getContext('2d');
     new Chart(ctx, {
@@ -61,10 +66,5 @@ function createChart(parsedData) {
     });
 }
 
-// Event listener voor het bestand kiezen
-document.getElementById('csvFileInput').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        parseCSV(file);
-    }
-});
+// Haal de CSV-gegevens op en maak de grafiek
+fetchCSVData(csvFileName);
