@@ -3,45 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grafiek op Canvas</title>
+    <title>Grafiek met CSV Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Grafiek voor Canvas</h1>
-    <canvas id="grafiekCanvas" width="600" height="400" style="border: 1px solid black;"></canvas>
+    <h1>Grafiek van CSV Data</h1>
 
-    <script>
-        // Verkrijg het canvas-element en de context
-        const canvas = document.getElementById('grafiekCanvas');
-        const ctx = canvas.getContext('2d');
+    <!-- Canvas voor de grafiek -->
+    <canvas id="grafiekCanvas" width="600" height="400"></canvas>
 
-        // Voorbeeldgegevens voor de grafiek
-        const data = [50, 80, 60, 90, 70];
-        const labels = ['Ma', 'Di', 'Wo', 'Do', 'Vr'];
-
-        // Teken de assen
-        ctx.beginPath();
-        ctx.moveTo(50, 350); // Onderste hoek
-        ctx.lineTo(50, 50);  // Linker lijn
-        ctx.lineTo(550, 350); // Onderste lijn
-        ctx.stroke();
-
-        // Teken de grafiek (lijn)
-        ctx.beginPath();
-        ctx.moveTo(50, 350 - data[0]);
-        for (let i = 1; i < data.length; i++) {
-            ctx.lineTo(50 + i * 100, 350 - data[i]);
-        }
-        ctx.strokeStyle = 'blue';
-        ctx.stroke();
-
-        // Voeg labels toe
-        ctx.font = '16px Arial';
-        ctx.fillText(labels[0], 50, 370);
-        ctx.fillText(labels[1], 150, 370);
-        ctx.fillText(labels[2], 250, 370);
-        ctx.fillText(labels[3], 350, 370);
-        ctx.fillText(labels[4], 450, 370);
-
-    </script>
+    <!-- Formulier voor het uploaden van de CSV -->
+    <input type="file" id="csvFileInput" accept=".csv" />
 </body>
 </html>
