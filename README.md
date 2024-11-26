@@ -12,3 +12,9 @@ Je gaat een HTML-pagina maken die:
 
 Een dataset (bijvoorbeeld een lijst met jaartallen en waarden) inleest vanuit een CSV-bestand.
 De gegevens weergeeft in een eenvoudige grafiek (lijn- of staafdiagram) met behulp van Chart.js
+
+documentatie:
+
+Je kunt via de html eerste een csv bestand kiezen uit je eigen bestanden. 
+Van deze csv word dan een grafiek gemaakt.
+De grafiek word weergeven als een lijngrafiek met juiste legende. 
