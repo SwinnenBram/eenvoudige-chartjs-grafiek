@@ -1,0 +1,8 @@
+# Gebruik een officiële Apache-webserver image
+FROM httpd:2.4
+
+# Kopieer de inhoud van jouw website naar de standaard map van Apache
+COPY ./ /usr/local/apache2/htdocs/
+
+# Zorg dat Apache standaard op poort 80 draait
+EXPOSE 80
