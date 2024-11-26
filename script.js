@@ -1,18 +1,16 @@
-// De naam van het CSV-bestand dat we willen inladen
-const csvFileName = 'data.csv';  // Dit is de naam van het CSV-bestand
-
-// Functie om CSV-bestand in te lezen met fetch
-function fetchCSVData(fileName) {
-    fetch(fileName)
-        .then(response => response.text())  // Verkrijg de tekst van het CSV-bestand
-        .then(csvData => {
-            const parsedData = parseCSVData(csvData);  // Verwerk de CSV-gegevens
-            createChart(parsedData);  // Maak de grafiek
-        })
-        .catch(error => {
-            console.error('Fout bij het inladen van CSV:', error);
-        });
-}
+// Functie om CSV-bestand in te lezen vanuit bestandselement
+document.getElementById('csvInput').addEventListener('change', event => {
+    const file = event.target.files[0]; // Haal het gekozen bestand op
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const csvData = e.target.result; // Verkrijg de inhoud van het bestand
+            const parsedData = parseCSVData(csvData); // Verwerk de CSV-gegevens
+            createChart(parsedData); // Maak de grafiek
+        };
+        reader.readAsText(file); // Lees het bestand als tekst
+    }
+});
 
 // Functie om CSV te verwerken en de gegevens om te zetten
 function parseCSVData(csv) {
@@ -24,8 +22,8 @@ function parseCSVData(csv) {
     for (let i = 1; i < lines.length; i++) {
         const line = lines[i].split(",");
         if (line.length > 1) {
-            labels.push(line[0].trim());  // De eerste kolom is de label (bijv. de dagen)
-            data.push(parseFloat(line[1].trim()));  // De tweede kolom is de data
+            labels.push(line[0].trim()); // De eerste kolom is de label (bijv. de dagen)
+            data.push(parseFloat(line[1].trim())); // De tweede kolom is de data
         }
     }
 
@@ -65,6 +63,3 @@ function createChart(parsedData) {
         }
     });
 }
-
-// Haal de CSV-gegevens op en maak de grafiek
-fetchCSVData(csvFileName);
