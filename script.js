@@ -50,13 +50,13 @@ function createChart(parsedData) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Dagen'
+                        text: 'x'
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Waarde'
+                        text: 'y'
                     }
                 }
             }
