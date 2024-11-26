@@ -1,0 +1,8 @@
+# Gebruik een officiële Nginx-webserver image
+FROM nginx:alpine
+
+# Kopieer de inhoud van jouw website naar de standaard map van Nginx
+COPY ./ /usr/share/nginx/html
+
+# Zorg dat Nginx standaard op poort 80 draait
+EXPOSE 80
